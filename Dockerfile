@@ -1,11 +1,12 @@
 # Base image: PHP 8.2 with Apache
 FROM php:8.2-apache
 
-# Install mysqli & PDO for MySQL
-RUN docker-php-ext-install mysqli pdo pdo_mysql
-
-# Enable Apache rewrite module (for .htaccess)
-RUN a2enmod rewrite
+# Install extensions: mysqli (MySQL) optional, PDO + pgsql for PostgreSQL
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql \
+    && docker-php-ext-install mysqli \
+    && a2enmod rewrite \
+    && apt-get clean
 
 # Set working directory
 WORKDIR /var/www/html
