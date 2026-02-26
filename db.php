@@ -7,7 +7,7 @@ session_start();
 try {
     // 🔹 Database connection using Render environment variables
     $conn = new PDO(
-       "pgsql:host=" . getenv('dpg-d6gad65m5p6s73dupe1g-a.singapore-postgres.render.com') . ";port=" . getenv('5432') . ";dbname=" . getenv('auth_system_0hva'),
+       "pgsql:host=" . getenv('dpg-d6gad65m5p6s73dupe1g-a') . ";port=" . getenv('5432') . ";dbname=" . getenv('auth_system_0hva'),
         getenv('auth_system_0hva_user'),
         getenv('VUnue8rx0sqGsS38IDVsLnEotDndICcy')
     );
@@ -20,3 +20,4 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 ?>
+
