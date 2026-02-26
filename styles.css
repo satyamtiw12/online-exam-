@@ -1,0 +1,241 @@
+/* Reset & basic */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+ 
+.login-wrapper {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    height: 100vh;
+
+    /* Background image */
+    /*background-image: url('https://web.mm-edu.in/uploads/img_mullana/L1_162_977_187060.jpeg'); /* image ka path */
+    background-image: url('https://erp.mmumullana.org/assets/assets1/images/bg-auth.jpg'); /* image ka path */
+    /* background-image: url('https://web.mm-edu.in/uploads/img_mullana/L1_162_977_187057.jpeg');  */
+    background-size: 200px 100px;
+    background-size: cover;         /* image pura screen cover kare */
+    background-position: center;    /* center aligned */
+    background-repeat: no-repeat;   /* repeat na ho */
+
+}
+
+/* Login Box */
+.login-box {
+    background: white;
+    padding: 50px 40px;              /* more vertical space */
+    border-radius: 15px;             /* modern rounded corners */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2); /* deeper shadow */
+    width: 360px;                     /* slightly wider */
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.login-box:hover {
+    transform: translateY(-5px); /* subtle lift effect on hover */
+}
+
+/* Form container */
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* center fields */
+}
+
+/* Labels */
+.login-box label {
+    width: 100%;          /* full width label */
+    text-align: left;     /* left aligned text */
+    margin-top: 12px;     /* spacing from previous element */
+    font-weight: 500;
+}
+
+/* Input Fields */
+.login-box input {
+    width: 100%;
+    padding: 12px 15px;   /* internal padding */
+    margin-top: 5px;      /* spacing from label */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Login Button */
+.login-box button {
+    width: 100%;
+    margin-top: 25px;       /* spacing from last input */
+    padding: 14px;          /* slightly bigger button */
+    border-radius: 8px;     /* modern rounded corners */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #1900ff;
+    color: white;
+    border: none;
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+    background-color: #6a11cb;
+}
+
+/* Error Message */
+#errorMessage {
+    color: red;
+    margin-top: 12px;
+    display: none;
+    font-weight: bold;
+}
+
+/* Dashboard (unchanged) */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #303641;
+    color: white;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background-color: #ff4b5c;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    
+}
+
+.logout-btn:hover {
+    background-color: #ff1c3b;
+}
+
+main {
+    padding: 50px 40px;
+    text-align: center;
+}
+
+main h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+/* Sections */
+section {
+    background: white;
+    width: 50%;
+    margin: 25px 0 25px 40px;  /* left shift */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+    background: #2575fc;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+/* Dashboard only background image */
+.dashboard-page {
+    background-image: url('https://erp.mmumullana.org/assets/assets1/images/bg-auth.jpg'); /* image ka path */
+    background-size: cover;          /* full screen */
+    background-position: center;     /* center aligned */
+    background-repeat: no-repeat;    /* repeat off */
+    background-attachment: fixed;    /* professional look */
+}
+
+
+
+
+
+
+
+/* Star Rating */
+.star-rating {
+    font-size: 40px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating span:hover,
+.star-rating span.active {
+    color: gold;
+}
+
+
+
+
+
+
+
+.signup-text {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.signup-text a {
+  color: #4a6cf7;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+.auth-box{
+  background:#fff;
+  width:420px;          /* pehle 350px tha */
+  padding:40px;         /* andar se space badhega */
+  border-radius:12px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
