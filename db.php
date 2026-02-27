@@ -1,7 +1,10 @@
 <?php
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', 1);
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 try {
 
@@ -14,8 +17,6 @@ try {
     );
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    echo "Connected Successfully 🚀";
 
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
