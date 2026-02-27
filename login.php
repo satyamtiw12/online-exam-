@@ -1,6 +1,5 @@
 <?php
-include("db.php");
-session_start();
+include("db.php");   // session already start ho raha hai yaha se
 
 $error = "";
 
@@ -9,7 +8,6 @@ if(isset($_POST['login'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // ✅ PDO prepared statement
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
@@ -18,18 +16,18 @@ if(isset($_POST['login'])){
 
     if($row){
         if(password_verify($password, $row['password'])){
-            // ✅ Set proper session
+
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
 
-            // 🔹 Redirect based on role
             if($row['role'] == 'admin'){
                 header("Location: admin_dashboard.php");
             } else {
                 header("Location: dashboard.php");
             }
             exit();
+
         } else {
             $error = "Wrong Password ❌";
         }
@@ -87,3 +85,4 @@ if(isset($_POST['login'])){
   </div>
 </body>
 </html>
+
