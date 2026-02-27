@@ -8,72 +8,67 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 include("db.php");
-date_default_timezone_set("Asia/Kolkata"); // timezone fix
+
+date_default_timezone_set("Asia/Kolkata");
+
+$msg = "";
 
 if(isset($_POST['send_otp'])){
 
-    $email = trim($_POST['email']); // extra space remove
+    $email = trim($_POST['email']);
 
-    // Check if email exists
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email=?");
-    $stmt->bind_param("s",$email);
-    $stmt->execute();
-    $stmt->store_result();
+    // ✅ Check if email exists (PDO)
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->execute([$email]);
 
-    if($stmt->num_rows == 1){
+    if($stmt->rowCount() == 1){
 
         // Generate OTP
         $otp = rand(100000,999999);
         $expire = date("Y-m-d H:i:s", strtotime("+5 minutes"));
 
-        // Update OTP and expiry in DB
-        $update = $conn->prepare("UPDATE users SET otp=?, otp_expiry=? WHERE email=?");
-        $update->bind_param("sss",$otp,$expire,$email);
-        $update->execute();
+        // ✅ Update OTP in DB (PDO)
+        $update = $conn->prepare("UPDATE users SET otp = ?, otp_expiry = ? WHERE email = ?");
+        $update->execute([$otp, $expire, $email]);
 
-        // Debug - check if update worked
-        if($update->affected_rows > 0){
-            // echo "OTP Stored Successfully"; // remove/comment after testing
+        if($update->rowCount() > 0){
+
+            $mail = new PHPMailer(true);
+
+            try {
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                 $mail->Username = 'satyamtiwari098765@gmail.com';
+            $mail->Password = 'ekpdlreuxoishdgc';   // safer
+                $mail->SMTPSecure = 'tls';
+                $mail->Port       = 587;
+
+                $mail->setFrom(getenv('EMAIL_USER'), 'Auth System');
+                $mail->addAddress($email);
+
+                $mail->Subject = 'Password Reset OTP';
+                $mail->Body    = "Your OTP is: $otp\nValid for 5 minutes.";
+
+                $mail->send();
+
+                header("Location: verify_otp.php?email=" . urlencode($email));
+                exit();
+
+            } catch (Exception $e) {
+                $msg = "Mailer Error: " . $mail->ErrorInfo;
+            }
+
         } else {
-            die("OTP NOT Stored in DB ❌. Check email spelling or DB.");
-        }
-
-        // Send OTP using PHPMailer
-        $mail = new PHPMailer(true);
-
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'satyamtiwari098765@gmail.com';
-            $mail->Password = 'ekpdlreuxoishdgc'; // use your Gmail App Password
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom('satyamtiwari098765@gmail.com', 'Auth System');
-            $mail->addAddress($email);
-
-            $mail->Subject = 'Password Reset OTP';
-            $mail->Body = "Your OTP is: $otp\nValid for 5 minutes.";
-
-            $mail->send();
-
-            // Redirect to verify page
-            header("Location: verify_otp.php?email=" . urlencode($email));
-            exit();
-
-        } catch (Exception $e) {
-            echo "Mailer Error: {$mail->ErrorInfo}";
+            $msg = "OTP not stored ❌";
         }
 
     } else {
-        echo "Email not found ❌";
+        $msg = "Email not found ❌";
     }
-
-    $stmt->close();
 }
-
 ?>
+
 
 <!-- <!DOCTYPE html>
 <html>
@@ -256,3 +251,4 @@ if(isset($_POST['send_otp'])){
 
 </body>
 </html>
+
