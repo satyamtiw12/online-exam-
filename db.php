@@ -6,16 +6,16 @@ session_start();
 try {
 
     $conn = new PDO(
-        "pgsql:host=" . getenv('dpg-d6gad65m5p6s73dupe1g-a.singapore-postgres.render.com') .
-        ";port=" . getenv('5432') .
-        ";dbname=" . getenv('auth_system_0hva'),
-        getenv('auth_system_0hva_user'),
-        getenv('VUnue8rx0sqGsS38IDVsLnEotDndICcy')
+        "pgsql:host=" . getenv('DB_HOST') .
+        ";port=" . getenv('DB_PORT') .
+        ";dbname=" . getenv('DB_NAME'),
+        getenv('DB_USER'),
+        getenv('DB_PASS')
     );
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    echo "Connected successfully!";
+    echo "Connected Successfully 🚀";
 
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
